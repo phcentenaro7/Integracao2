@@ -9,7 +9,7 @@ def application(environ, start_response):
         output += 'Seu login: ' + fields.get('login', '') + '<br>'
         output += 'Sua senha: ' + fields.get('senha', '') + '<br>'
 
-    headers = [('Contenty-type', 'text/plain')]
+    headers = [('Contenty-type', 'text/plain; charset=utf-8')]
 
     start_response(status, headers)
     return [output.encode()]
