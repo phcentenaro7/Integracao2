@@ -1,17 +1,10 @@
-from urllib import parse
+from flask import Flask
 
-def application(environ, start_response):
-    status = '200 OK'
-    output = ['<!DOCTYPE html><html><body>', 'Olá, mundo!']
-    content_length = int(environ.get('CONTENT_LENGTH', 0))
-    if content_length > 0:
-        fields = parse(environ['wsgi.input'].read(content_length))
-        output.append('Seu login: ' + fields.get('login', ''))
-        output.append('Sua senha: ' + fields.get('senha', ''))
-    output.append('</body></html>')
+app = Flask(__name__)
 
-    headers = [('Contenty-Type', 'text/html; charset=utf-8'),
-               ('Content-Length', str(sum([len(s) for s in output]) + 1))]
+@app.route('/hello_world')
+def sayHello():
+    return "Hello, world!"
 
-    start_response(status, headers)
-    return [s.encode('utf-8') for s in output]
+if __name__ == '__main__':
+    app.run(debug=True)
