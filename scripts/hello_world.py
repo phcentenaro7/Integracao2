@@ -1,4 +1,4 @@
-from cgi import parse_qs
+from urllib import parse
 
 def application(environ, start_response):
     status = '200 OK'
