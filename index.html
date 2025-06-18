@@ -16,7 +16,11 @@
         <p>
             Por favor, insira seus dados de login abaixo.
         </p>
-        <form action="/scripts/hello_world.py">
+        <form method="post" action="/scripts/hello_world.py">
+            <label for="login">Usuário ou email:</label>
+            <input type="text" id="login"><br><br>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha"><br><br>
             <input type="submit" value="Submit">
         </form> 
     </body>
