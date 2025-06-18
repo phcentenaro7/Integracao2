@@ -10,8 +10,8 @@ def application(environ, start_response):
         output.append('Sua senha: ' + fields.get('senha', ''))
     output.append('</body></html>')
 
-    headers = [('Contenty-type', 'text/html; charset=utf-8'),
-               ('Content-length', str(sum([len(s) for s in output]) + 1))]
+    headers = [('Contenty-Type', 'text/html; charset=utf-8'),
+               ('Content-Length', str(sum([len(s) for s in output]) + 1))]
 
     start_response(status, headers)
     return [s.encode('utf-8') for s in output]
