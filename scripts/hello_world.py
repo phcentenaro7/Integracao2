@@ -12,4 +12,4 @@ def application(environ, start_response):
     headers = [('Contenty-type', 'text/plain; charset=utf-8')]
 
     start_response(status, headers)
-    return [output.encode()]
+    return [s.encode() for s in output]
