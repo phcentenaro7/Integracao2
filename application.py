@@ -1,6 +1,8 @@
-from flask import Flask, send_file, url_for, request, render_template, redirect
+from flask import Flask, send_file, url_for, request, render_template, redirect, abort
+import mysql.connector
 
 application = Flask(__name__)
+usersDB = mysql.connector.connect(database='server')
 
 @application.route('/', methods=['GET'])
 def serveMainPage():
@@ -11,7 +13,16 @@ def verifyLogin():
     if request.method == 'POST':
         login = request.form['login']
         password = request.form['senha']
-        return redirect(url_for('sayHello', login=login, password=password))
+        cursor = usersDB.cursor()
+        query = ("SELECT * FROM users"
+                 "WHERE (username=%s OR email=%s) AND password=%s")
+        cursor.execute(query, (login, login, password))
+        if len(cursor) > 0:
+            cursor.close()
+            return redirect(url_for('sayHello', login=login, password=password))
+        cursor.close()
+        abort(404)
+        
 
 @application.route('/hello_world/<login>/<password>', methods=['GET', 'POST'])
 def sayHello(login, password):
