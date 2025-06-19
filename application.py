@@ -6,7 +6,7 @@ application = Flask(__name__)
 def serveMainPage():
     return send_file('index.html')
 
-@application.route('hello_world')
+@application.route('/hello_world')
 def sayHello():
     return "Hello, world!"
 
