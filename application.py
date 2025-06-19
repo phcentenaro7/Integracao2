@@ -20,7 +20,8 @@ def verifyLogin():
                  "WHERE (username=%s OR email=%s) AND password=%s")
         cursor.execute(query, (login, login, password))
         if cursor.rowcount > 0:
-            activeUsersDB.lpush(request.remote_addr, [login, str(0)])
+            activeUsersDB.lpush(request.remote_addr, login)
+            activeUsersDB.lpush(request.remote_addr, str(0))
             cursor.close()
             return redirect(url_for('sayHello', login=login, password=password))
         cursor.close()
