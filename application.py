@@ -22,7 +22,7 @@ def verifyLogin():
         if cursor.rowcount > 0:
             print(request.remote_addr)
             print(login)
-            activeUsersDB.setex(request.remote_addr, 60, (login, 0))
+            activeUsersDB.setex(request.remote_addr, 60, request.remote_addr)
             cursor.close()
             return redirect(url_for('sayHello', login=login, password=password))
         cursor.close()
