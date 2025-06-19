@@ -37,8 +37,8 @@ def verifyLogin():
 @application.route('/remaining_time/<userIP>', methods=['POST'])
 def getRemainingTime(userIP):
     if len(activeUsersDB.keys(userIP)) > 0:
-        return activeUsersDB.ttl(userIP)
-    return 0
+        return str(activeUsersDB.ttl(userIP))
+    return str(0)
 
 @application.route('/hello_world/<userIP>', methods=['GET', 'POST'])
 def sayHello(userIP):
