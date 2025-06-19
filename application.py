@@ -17,7 +17,7 @@ def verifyLogin():
         password = request.form['senha']
         userIP = request.remote_addr
 
-        if activeUsersDB.get(userIP) is not None:
+        if activeUsersDB.exists(userIP) > 0:
             activeUsersDB.expire(userIP, 60)
             return redirect(url_for('sayHello', login=login, password=password))
         
