@@ -41,6 +41,8 @@ def getRemainingTime(userIP):
 
 @application.route('/hello_world/<userIP>', methods=['GET', 'POST'])
 def sayHello(userIP):
+    if userIP != request.remote_addr:
+        return redirect('/')
     activeUsersDB.expire(userIP, 60)
     login = activeUsersDB.lindex(userIP, 0)
     cursor = usersDB.cursor(buffered=True, dictionary=True)
