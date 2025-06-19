@@ -17,7 +17,7 @@ def verifyLogin():
         query = ("SELECT * FROM users "
                  "WHERE (username=%s OR email=%s) AND password=%s")
         cursor.execute(query, (login, login, password))
-        if len(cursor) > 0:
+        if cursor.rowcount() > 0:
             cursor.close()
             return redirect(url_for('sayHello', login=login, password=password))
         cursor.close()
