@@ -36,6 +36,7 @@ def verifyLogin():
     
 @application.route('/remaining_time/<userIP>', methods=['POST'])
 def getRemainingTime(userIP):
+    return "melancia"
     if activeUsersDB.exists(userIP) > 0:
         return str(activeUsersDB.ttl(userIP))
     return str(0)
