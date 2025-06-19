@@ -2,7 +2,7 @@ from flask import Flask, send_file, url_for, request, render_template, redirect,
 import mysql.connector
 
 application = Flask(__name__)
-usersDB = mysql.connector.connect(database='server')
+usersDB = mysql.connector.connect(user='admin', password='admin', database='server')
 
 @application.route('/', methods=['GET'])
 def serveMainPage():
