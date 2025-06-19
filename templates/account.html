@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            .div-1 {
+                background-color:#f77676;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Bem-vindo(a)!
+        </h1>
+        <p>
+            Suas informações de perfil:<br>
+            <ul>
+                <li>Nome de usuário: {{username}}</li>
+                <li>Email: {{email}}</li>
+                <li>Idade: {{age}}</li>
+                <li>País: {{country}}</li>
+            </ul>
+        </p>
+        <br>
+        Atenção: Você tem <div class="div-1" hx-get="/remaining_time/{{userIP}}" hx-trigger="every 1s"></div> até sua sessão ser desconectada por inatividade!
+    </body>
+</html>

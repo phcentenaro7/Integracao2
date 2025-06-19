@@ -15,22 +15,44 @@ def verifyLogin():
     if request.method == 'POST':
         login = request.form['login']
         password = request.form['senha']
-        cursor = usersDB.cursor(buffered=True)
+        userIP = request.remote_addr
+
+        if activeUsersDB.get(userIP) != None:
+            activeUsersDB.expire(userIP, 60)
+            return redirect(url_for('sayHello', login=login, password=password))
+        
+        cursor = usersDB.cursor(buffered=True, dictionary=True)
         query = ("SELECT * FROM users "
                  "WHERE (username=%s OR email=%s) AND password=%s")
         cursor.execute(query, (login, login, password))
         if cursor.rowcount > 0:
-            activeUsersDB.lpush(request.remote_addr, login)
-            activeUsersDB.lpush(request.remote_addr, str(0))
+            activeUsersDB.lpush(userIP, str(0))
+            activeUsersDB.lpush(userIP, login)
+            activeUsersDB.expire(userIP, 60)
             cursor.close()
-            return redirect(url_for('sayHello', login=login, password=password))
+            return redirect(url_for('sayHello', userIP=userIP))
         cursor.close()
-        abort(404)
-        
+        return redirect('/')
+    
+@application.route('/remaining_time/<userIP>', methods=['POST'])
+def getRemainingTime(userIP):
+    if len(activeUsersDB.keys(userIP)) > 0:
+        return activeUsersDB.ttl(userIP)
+    return 0
 
-@application.route('/hello_world/<login>/<password>', methods=['GET', 'POST'])
-def sayHello(login, password):
-    return 'Hello, world!\nLogin: ' + login + '\nSenha: ' + password
+@application.route('/hello_world/<userIP>', methods=['GET', 'POST'])
+def sayHello(userIP):
+    login = activeUsersDB.lindex(userIP, 0)
+    cursor = usersDB.cursor(buffered=True)
+    query = ("SELECT * FROM users "
+                "WHERE username=%s OR email=%s")
+    cursor.execute(query, (login, login))
+    username = cursor['username']
+    email = cursor['email']
+    age = cursor['age']
+    country = cursor['country']
+    cursor.close()
+    return render_template('account.html', username=username, email=email, age=age, country=country, userIP=userIP)
 
 if __name__ == '__main__':
     application.run(debug=True)
