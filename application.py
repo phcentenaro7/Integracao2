@@ -1,16 +1,17 @@
-from flask import Flask, send_file, request, render_template
+from flask import Flask, send_file, url_for, request, render_template
 
 application = Flask(__name__)
 
 @application.route('/', methods=['GET', 'POST'])
 def serveMainPage():
-    return render_template('index.html')
+    if request.method == 'POST':
+        return redirect(url_for('hello_world', login=request.form['login'], password=request.form['senha']))
+    else:
+        return render_template('index.html')
 
 @application.route('/hello_world', methods=['GET', 'POST'])
-def sayHello():
-    print(request.form['login'])
-    print(request.form['senha'])
-    return 'Hello, world!\nLogin: ' + request.form['login'] + '\nSenha: ' + request.form['senha']
+def sayHello(login, password):
+    return 'Hello, world!\nLogin: ' + login + password
 
 if __name__ == '__main__':
     application.run(debug=True)
