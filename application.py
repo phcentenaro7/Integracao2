@@ -11,7 +11,7 @@ def serveMainPage():
     else:
         return render_template('index.html')
 
-@application.route('/hello_world', methods=['GET'])
+@application.route('/hello_world', methods=['GET', 'POST'])
 def sayHello(login, password):
     return 'Hello, world!\nLogin: ' + login + '\nSenha: ' + password
 
