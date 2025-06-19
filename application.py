@@ -13,7 +13,7 @@ def verifyLogin():
     if request.method == 'POST':
         login = request.form['login']
         password = request.form['senha']
-        cursor = usersDB.cursor()
+        cursor = usersDB.cursor(buffered=True)
         query = ("SELECT * FROM users "
                  "WHERE (username=%s OR email=%s) AND password=%s")
         cursor.execute(query, (login, login, password))
