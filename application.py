@@ -18,8 +18,7 @@ def verifyLogin():
         userIP = request.remote_addr
 
         if activeUsersDB.exists(userIP) > 0:
-            activeUsersDB.expire(userIP, 60)
-            return redirect(url_for('sayHello', login=login, password=password))
+            return redirect(url_for('sayHello', userIP=userIP))
         
         cursor = usersDB.cursor(buffered=True, dictionary=True)
         query = ("SELECT * FROM users "
@@ -42,6 +41,7 @@ def getRemainingTime(userIP):
 
 @application.route('/hello_world/<userIP>', methods=['GET', 'POST'])
 def sayHello(userIP):
+    activeUsersDB.expire(userIP, 60)
     login = activeUsersDB.lindex(userIP, 0)
     cursor = usersDB.cursor(buffered=True, dictionary=True)
     query = ("SELECT * FROM users "
