@@ -14,7 +14,7 @@ def verifyLogin():
         login = request.form['login']
         password = request.form['senha']
         cursor = usersDB.cursor()
-        query = ("SELECT * FROM users"
+        query = ("SELECT * FROM users "
                  "WHERE (username=%s OR email=%s) AND password=%s")
         cursor.execute(query, (login, login, password))
         if len(cursor) > 0:
