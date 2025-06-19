@@ -2,6 +2,13 @@
     <head>
         <meta charset="UTF-8">
         <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+        <style>
+            .timer_div
+            {
+                white-space: nowrap;
+                background-color: red;
+            }
+        </style>
     </head>
     <body>
         <h1>
@@ -17,6 +24,6 @@
             </ul>
         </p>
         <br>
-        <b>Atenção:</b> Você tem <div hx-get="/remaining_time/{{userIP}}" hx-trigger="every 1s"></div> até sua sessão ser desconectada por inatividade!
+        <b>Atenção:</b> Você tem <div background:red hx-get="/remaining_time/{{userIP}}" hx-trigger="every 1s"></div> até sua sessão ser desconectada por inatividade!
     </body>
 </html>
