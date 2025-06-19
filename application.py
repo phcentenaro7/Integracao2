@@ -8,7 +8,7 @@ def serveMainPage():
 
 @application.route('/hello_world', methods=['GET', 'POST'])
 def sayHello():
-    return 'Hello, world!\nLogin: ' + request.form.get('login') + '\nSenha: ' + request.form.get('senha')
+    return 'Hello, world!\nLogin: ' + request.form['login'] + '\nSenha: ' + request.form['senha']
 
 if __name__ == '__main__':
     application.run(debug=True)
