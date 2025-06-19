@@ -1,8 +1,10 @@
 from flask import Flask, send_file, url_for, request, render_template, redirect, abort
 import mysql.connector
+import redis
 
 application = Flask(__name__)
 usersDB = mysql.connector.connect(user='admin', password='admin', database='server')
+activeUsersDB = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 @application.route('/', methods=['GET'])
 def serveMainPage():
