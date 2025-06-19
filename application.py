@@ -43,7 +43,7 @@ def getRemainingTime(userIP):
 @application.route('/hello_world/<userIP>', methods=['GET', 'POST'])
 def sayHello(userIP):
     login = activeUsersDB.lindex(userIP, 0)
-    cursor = usersDB.cursor(buffered=True)
+    cursor = usersDB.cursor(buffered=True, dictionary=True)
     query = ("SELECT * FROM users "
                 "WHERE username=%s OR email=%s")
     cursor.execute(query, (login, login))
