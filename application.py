@@ -47,12 +47,12 @@ def sayHello(userIP):
     query = ("SELECT * FROM users "
                 "WHERE username=%s OR email=%s")
     cursor.execute(query, (login, login))
-    cursor.fetchone()
-    username = cursor['username']
-    email = cursor['email']
-    age = cursor['age']
-    country = cursor['country']
+    row = cursor.fetchone()
     cursor.close()
+    username = row['username']
+    email = row['email']
+    age = row['age']
+    country = row['country']
     return render_template('account.html', username=username, email=email, age=age, country=country, userIP=userIP)
 
 if __name__ == '__main__':
