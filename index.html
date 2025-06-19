@@ -18,9 +18,9 @@
         </p>
         <form method="post" action="/hello_world">
             <label for="login">Usuário ou email:</label>
-            <input type="text" id="login"><br><br>
+            <input type="text" id="login" value="{{request.form['login']}}"><br><br>
             <label for="senha">Senha:</label>
-            <input type="password" id="senha"><br><br>
+            <input type="password" id="senha" value="{{request.form['senha']}}"><br><br>
             <input type="submit" value="Submit">
         </form> 
     </body>

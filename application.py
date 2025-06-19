@@ -1,10 +1,10 @@
-from flask import Flask, send_file, request
+from flask import Flask, send_file, request, render_template
 
 application = Flask(__name__)
 
-@application.route('/')
+@application.route('/', methods=['POST'])
 def serveMainPage():
-    return send_file('index.html')
+    return render_template('index.html')
 
 @application.route('/hello_world', methods=['POST'])
 def sayHello():
