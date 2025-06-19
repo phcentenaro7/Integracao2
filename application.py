@@ -47,6 +47,7 @@ def sayHello(userIP):
     query = ("SELECT * FROM users "
                 "WHERE username=%s OR email=%s")
     cursor.execute(query, (login, login))
+    cursor.fetchall()
     username = cursor['username']
     email = cursor['email']
     age = cursor['age']
