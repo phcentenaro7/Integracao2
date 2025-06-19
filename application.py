@@ -5,11 +5,13 @@ application = Flask(__name__)
 @application.route('/', methods=['GET', 'POST'])
 def serveMainPage():
     if request.method == 'POST':
-        return redirect(url_for('sayHello', login=request.form['login'], password=request.form['senha']))
+        login = request.form['login']
+        password = request.form['senha']
+        return redirect(url_for('sayHello', login=login, password=password))
     else:
         return render_template('index.html')
 
-@application.route('/hello_world', methods=['GET', 'POST'])
+@application.route('/hello_world', methods=['GET'])
 def sayHello(login, password):
     return 'Hello, world!\nLogin: ' + login + '\nSenha: ' + password
 
