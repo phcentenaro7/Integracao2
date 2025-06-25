@@ -45,6 +45,8 @@ def sayHello(userIP):
         return redirect('/')
     activeUsersDB.expire(userIP, 60)
     login = activeUsersDB.lindex(userIP, 0)
+    activity = int(activeUsersDB.lindex(userIP, 1)) + 1
+    activeUsersDB.lset(userIP, 1, str(activity))
     cursor = usersDB.cursor(buffered=True, dictionary=True)
     query = ("SELECT * FROM users "
                 "WHERE username=%s OR email=%s")
